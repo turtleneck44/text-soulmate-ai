@@ -1,15 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/layout/Header";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { PricingSection } from "@/components/sections/PricingSection";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { CTASection } from "@/components/sections/CTASection";
+import { Footer } from "@/components/sections/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-      <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold text-foreground">AI Girlfriend Text App</h1>
-        <p className="text-xl text-muted-foreground">Your virtual companion is waiting to chat with you!</p>
-        <div className="bg-card p-6 rounded-lg border shadow-sm max-w-md mx-auto">
-          <p className="text-card-foreground">Ready to start your AI-powered texting experience?</p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <HeroSection />
+      <HowItWorksSection />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <PricingSection />
+      <AboutSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 };
