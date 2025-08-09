@@ -17,7 +17,7 @@ export const Footer = () => {
     ],
     support: [
       { name: "Help Center", href: "#" },
-      { name: "Contact Us", href: "#" },
+      { name: "Contact Us", href: "#contact" },
       { name: "Status", href: "#" },
       { name: "Safety", href: "#" },
     ],

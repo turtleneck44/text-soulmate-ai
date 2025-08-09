@@ -12,7 +12,7 @@ export const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 Your Perfect
-                <span className="text-primary"> AI Companion</span>
+                <span className="text-primary"> AI Girlfriend</span>
                 <br />
                 Always There for You
               </h1>
