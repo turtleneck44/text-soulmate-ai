@@ -4,7 +4,7 @@ import { MessageSquareHeart, ArrowRight, Sparkles } from "lucide-react";
 
 export const CTASection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5">
+    <section id="get-started" className="py-20 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <Card className="max-w-4xl mx-auto bg-card border shadow-xl">
           <div className="p-8 md:p-12 text-center">
@@ -40,12 +40,14 @@ export const CTASection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 group">
-                Start Your Free Trial
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="text-lg px-8 py-6 group" asChild>
+                <a href="#pricing">
+                  Start Your Free Trial
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-                See Live Demo
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" asChild>
+                <a href="#how-it-works">See Live Demo</a>
               </Button>
             </div>
 

@@ -40,8 +40,12 @@ export const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost">Sign In</Button>
-            <Button>Get Started</Button>
+            <Button variant="ghost" asChild>
+              <a href="#pricing">Sign In</a>
+            </Button>
+            <Button asChild>
+              <a href="#pricing">Get Started</a>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -71,8 +75,12 @@ export const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost">Sign In</Button>
-                <Button>Get Started</Button>
+                <Button variant="ghost" asChild>
+                  <a href="#pricing" onClick={() => setIsMenuOpen(false)}>Sign In</a>
+                </Button>
+                <Button asChild>
+                  <a href="#pricing" onClick={() => setIsMenuOpen(false)}>Get Started</a>
+                </Button>
               </div>
             </nav>
           </div>

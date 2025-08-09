@@ -107,8 +107,11 @@ export const PricingSection = () => {
                   className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
                   variant={plan.popular ? 'default' : 'outline'}
                   size="lg"
+                  asChild
                 >
-                  {plan.buttonText}
+                  <a href="#get-started" aria-label={`Choose ${plan.name} plan`}>
+                    {plan.buttonText}
+                  </a>
                 </Button>
               </CardContent>
             </Card>

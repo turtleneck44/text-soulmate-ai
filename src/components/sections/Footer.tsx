@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { useRef } from "react";
 import { MessageSquareHeart, Twitter, Instagram, Facebook, Mail } from "lucide-react";
 
 export const Footer = () => {
@@ -7,7 +9,7 @@ export const Footer = () => {
       { name: "How It Works", href: "#how-it-works" },
       { name: "Features", href: "#features" },
       { name: "Pricing", href: "#pricing" },
-      { name: "AI Personalities", href: "#" },
+      { name: "AI Personalities", href: "#features" },
     ],
     company: [
       { name: "About Us", href: "#about" },
@@ -35,6 +37,8 @@ export const Footer = () => {
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Mail, href: "#", label: "Email" },
   ];
+
+  const emailRef = useRef<HTMLInputElement>(null);
 
   return (
     <footer className="bg-muted/20 border-t border-border">
@@ -127,11 +131,20 @@ export const Footer = () => {
             <p className="text-muted-foreground mb-6">Get the latest news and updates about TextSoulmate features.</p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
+                ref={emailRef}
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <Button>Subscribe</Button>
+              <Button onClick={() => {
+                const value = emailRef.current?.value?.trim();
+                if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                  toast({ title: "Please enter a valid email" });
+                  return;
+                }
+                toast({ title: "Subscribed!", description: `We'll keep you updated at ${value}.` });
+                if (emailRef.current) emailRef.current.value = "";
+              }}>Subscribe</Button>
             </div>
           </div>
         </div>

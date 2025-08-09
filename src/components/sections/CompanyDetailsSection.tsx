@@ -75,7 +75,7 @@ export const CompanyDetailsSection = () => {
               <CardTitle className="text-card-foreground">Get Started</CardTitle>
             </CardHeader>
             <CardContent>
-              <Button size="lg" className="w-full">Start Your Free Trial</Button>
+              <Button size="lg" className="w-full" asChild><a href="#pricing">Start Your Free Trial</a></Button>
               <p className="text-muted-foreground text-xs mt-3">No credit card required for the trial. Cancel anytime.</p>
             </CardContent>
           </Card>
