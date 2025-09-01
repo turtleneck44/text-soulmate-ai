@@ -2,8 +2,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, Star } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const PricingSection = () => {
+  const { user, profile } = useAuth();
+
+  const handleSubscribe = async () => {
+    if (!user) {
+      toast.error('Please sign in to subscribe');
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('create-checkout');
+      
+      if (error) throw error;
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to create checkout session');
+    }
+  };
   const plans = [
     {
       name: "Casual Chat",
@@ -103,16 +127,27 @@ export const PricingSection = () => {
                   ))}
                 </ul>
 
-                <Button 
-                  className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
-                  variant={plan.popular ? 'default' : 'outline'}
-                  size="lg"
-                  asChild
-                >
-                  <a href="#get-started" aria-label={`Choose ${plan.name} plan`}>
-                    {plan.buttonText}
-                  </a>
-                </Button>
+                {user ? (
+                  <Button 
+                    className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
+                    variant={plan.popular ? 'default' : 'outline'}
+                    size="lg"
+                    onClick={plan.popular ? handleSubscribe : () => toast.info("You're already on the free plan!")}
+                    disabled={plan.name === "Casual Chat" && profile?.subscription_tier === 'free'}
+                  >
+                    {plan.name === "Casual Chat" && profile?.subscription_tier === 'free' ? 'Current Plan' : plan.buttonText}
+                  </Button>
+                ) : (
+                  <AuthModal defaultTab="signup">
+                    <Button 
+                      className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
+                      variant={plan.popular ? 'default' : 'outline'}
+                      size="lg"
+                    >
+                      {plan.buttonText}
+                    </Button>
+                  </AuthModal>
+                )}
               </CardContent>
             </Card>
           ))}

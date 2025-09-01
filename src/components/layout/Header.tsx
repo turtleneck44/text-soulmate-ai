@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { MessageSquareHeart, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const navigation = [
     { name: "How It Works", href: "#how-it-works" },
@@ -40,12 +45,29 @@ export const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <a href="#pricing">Sign In</a>
-            </Button>
-            <Button asChild>
-              <a href="#pricing">Get Started</a>
-            </Button>
+            {user ? (
+              <>
+                <Button variant="ghost" onClick={() => navigate('/dashboard')}>
+                  Dashboard
+                </Button>
+                <Button variant="outline" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <AuthModal>
+                  <Button variant="ghost">
+                    Sign In
+                  </Button>
+                </AuthModal>
+                <AuthModal defaultTab="signup">
+                  <Button>
+                    Get Started
+                  </Button>
+                </AuthModal>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -75,12 +97,29 @@ export const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" asChild>
-                  <a href="#pricing" onClick={() => setIsMenuOpen(false)}>Sign In</a>
-                </Button>
-                <Button asChild>
-                  <a href="#pricing" onClick={() => setIsMenuOpen(false)}>Get Started</a>
-                </Button>
+                {user ? (
+                  <>
+                    <Button variant="ghost" onClick={() => { navigate('/dashboard'); setIsMenuOpen(false); }}>
+                      Dashboard
+                    </Button>
+                    <Button variant="outline" onClick={() => { signOut(); setIsMenuOpen(false); }}>
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <AuthModal>
+                      <Button variant="ghost" onClick={() => setIsMenuOpen(false)}>
+                        Sign In
+                      </Button>
+                    </AuthModal>
+                    <AuthModal defaultTab="signup">
+                      <Button onClick={() => setIsMenuOpen(false)}>
+                        Get Started
+                      </Button>
+                    </AuthModal>
+                  </>
+                )}
               </div>
             </nav>
           </div>

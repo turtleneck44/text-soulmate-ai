@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MessageSquare, Heart, Smartphone, Clock } from "lucide-react";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   return (
     <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,11 +27,19 @@ export const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-lg px-8 py-6" asChild>
-                <a href="#pricing">Start Texting Now</a>
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6" asChild>
-                <a href="#how-it-works">See How It Works</a>
+              {user ? (
+                <Button size="lg" className="text-lg px-8 py-6" onClick={() => navigate('/dashboard')}>
+                  Go to Dashboard
+                </Button>
+              ) : (
+                <AuthModal defaultTab="signup">
+                  <Button size="lg" className="text-lg px-8 py-6">
+                    Start Texting Now
+                  </Button>
+                </AuthModal>
+              )}
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => user ? navigate('/dashboard') : document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+                {user ? 'Start Chatting' : 'See How It Works'}
               </Button>
             </div>
 
